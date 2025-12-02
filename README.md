@@ -6,7 +6,7 @@ A Chrome extension that renders `.qmd` (Quarto Markdown) files directly on GitHu
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/qmd-renderer.git
+   git clone https://github.com/androidilicious/GitQmd.git
    ```
 
 2. Open Chrome and go to `chrome://extensions/`
