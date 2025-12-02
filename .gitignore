@@ -1,0 +1,32 @@
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Development files
+*.log
+*.backup
+*.bak
+.env
+
+# Build artifacts (if any)
+dist/
+build/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+#Package files
+node_modules/
+*.zip
+
+# Version control
+.git/
