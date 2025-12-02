@@ -2,6 +2,8 @@
 
 A Chrome extension that renders `.qmd` (Quarto Markdown) files directly on GitHub with syntax highlighting and proper formatting.
 
+![Demo Screenshot](screenshots/image.png)
+
 ## Installation
 
 1. Clone this repository:
