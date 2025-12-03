@@ -18,10 +18,13 @@
             "js": [
                 "lib/marked.min.js",
                 "lib/highlight.min.js",
+                "lib/katex.min.js",
+                "lib/auto-render.min.js",
                 "content.js"
             ],
             "css": [
                 "lib/github-dark.min.css",
+                "lib/katex.min.css",
                 "styles.css"
             ],
             "run_at": "document_end"

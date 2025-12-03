@@ -72,9 +72,7 @@
             .replace(/\\pagebreak\s*/g, '')
             .replace(/\\clearpage\s*/g, '')
             .replace(/\\cleardoublepage\s*/g, '')
-            .replace(/\\noindent\s*/g, '')
-            .replace(/\\vspace\{[^}]+\}/g, '')
-            .replace(/\\hspace\{[^}]+\}/g, '');
+            .replace(/\\noindent\s*/g, '');
     }
 
     // Render the QMD content
@@ -82,10 +80,21 @@
         const { metadata, content } = parseYamlFrontmatter(rawContent);
 
         // Clean LaTeX commands before rendering
-        const cleanedContent = cleanLatexCommands(content);
+        let processedContent = cleanLatexCommands(content);
+
+        // Protect Math (preserve $$...$$ and $...$ from markdown rendering)
+        const mathBlocks = [];
+        processedContent = processedContent.replace(/\$\$([\s\S]+?)\$\$/g, (match) => {
+            mathBlocks.push(match);
+            return `%%%MATH${mathBlocks.length - 1}%%%`;
+        });
+        processedContent = processedContent.replace(/\$([^$\n]+?)\$/g, (match) => {
+            mathBlocks.push(match);
+            return `%%%MATH${mathBlocks.length - 1}%%%`;
+        });
 
         // Parse markdown using marked.js
-        const htmlContent = marked.parse(cleanedContent, {
+        let htmlContent = marked.parse(processedContent, {
             gfm: true,
             breaks: true,
             highlight: function (code, lang) {
@@ -98,6 +107,11 @@
                 }
                 return hljs.highlightAuto(code).value;
             }
+        });
+
+        // Restore Math
+        htmlContent = htmlContent.replace(/%%%MATH(\d+)%%%/g, (match, index) => {
+            return mathBlocks[index];
         });
 
         // Create rendered container
@@ -122,6 +136,21 @@
         }
 
         renderedDiv.innerHTML = metadataHtml + '<div class="qmd-content">' + htmlContent + '</div>';
+
+        // Render Math using KaTeX
+        if (typeof renderMathInElement === 'function') {
+            try {
+                renderMathInElement(renderedDiv, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false }
+                    ],
+                    throwOnError: false
+                });
+            } catch (e) {
+                console.error('KaTeX rendering error:', e);
+            }
+        }
 
         return renderedDiv;
     }
