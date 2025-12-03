@@ -26,6 +26,7 @@ Navigate to any `.qmd` file on GitHub and click the "Render QMD" button in the f
 - YAML frontmatter parsing (title, author, date)
 - Syntax highlighting for code blocks
 - Markdown rendering (tables, lists, blockquotes, images)
+- LaTeX math rendering ($...$ and $$...$$)
 - Text wrapping in code blocks
 - LaTeX command cleanup (`\newpage`, etc.)
 - Dark mode support
@@ -36,6 +37,7 @@ Navigate to any `.qmd` file on GitHub and click the "Render QMD" button in the f
 - Manifest V3
 - Marked.js (markdown parsing)
 - Highlight.js (syntax highlighting)
+- KaTeX (math rendering)
 - Vanilla JavaScript
 
 **Files:**
